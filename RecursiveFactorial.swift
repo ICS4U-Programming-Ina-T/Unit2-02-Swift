@@ -10,11 +10,12 @@
 // that uses a recursive function to determine the answer of
 // some number, factorial.
 
-func factorial(userNum: Int) -> Int {
+// determines the factorial of the user's number
+func factorial(userNum: Int) -> Double {
     if userNum == 1 || userNum == 0 {
-        return 1
+        return Double(1)
     } else {
-        return factorial(userNum: Int(userNum) - 1) * userNum
+        return Double(factorial(userNum: Int(userNum) - 1) * Double(userNum))
     }
 }
 
@@ -25,21 +26,19 @@ enum MyError: Error {
 
 // function that throws exception
 func catchString() throws {
-    throw MyError.runtimeError("Only numbers are valid!")
+    throw MyError.runtimeError("Value cannot be accepted!")
 }
-
-// main part of the code
 
 // declaring variables
 var userString: String
 var userNumInt: Int
-var userAnswer: Int
+var userAnswer: Double
 
 print("Today you will find out the answer when a number is put with factorial.")
 print()
 
 // gets input from the user
-print("Please enter a positive integer (o inclusive): ", terminator: "")
+print("Please enter a positive integer (0 inclusive): ", terminator: "")
 userString = readLine()!
 print()
 
@@ -54,8 +53,11 @@ do {
         userAnswer = factorial(userNum: userNumInt)
 
         print("The answer to \(userNumInt)! is \(userAnswer)")
-    }  
-  
+    } else {
+        print("Number type is invalid!")
+    }
+
+// checks if there are any errors in input
 } catch MyError.runtimeError(let errorMessage) {
     print(errorMessage)
     print()
